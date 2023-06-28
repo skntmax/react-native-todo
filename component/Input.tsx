@@ -28,9 +28,8 @@ class Input extends React.Component {
           />
 
         <Button  onPress={() =>{
-      if(this.state.text!="")this.setState({...this.state ,list:[...this.state.list , this.state.text ] , text:""} , ) 
-        
-}  }>
+      if(this.state.text!="")this.setState({...this.state ,list:[...this.state.list , this.state.text ] , text:""} , )  
+      }} >
     Save Item
   </Button>
 
