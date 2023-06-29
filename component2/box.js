@@ -5,64 +5,36 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { ScrollView } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import prd_data from '../utils'
-export default  Box=()=>{
-  
-     const [list , setList ] = useState( undefined )
+import utils from '../utils'
+import { useSelector, useDispatch } from "react-redux"
+import constants from "../Redux/constants"
+ export default  Box=()=>{
+
+  let {list:todo_list} = useSelector((ele)=> ele.mytodo )
+  let dispatch = useDispatch()
      
-     
-     const setItem = async (value) => {
-        try {
-          await AsyncStorage.setItem('prds', JSON.stringify(prd_data));
-        } catch (e) {
-          // saving error
-        }
-      };
-
-      const getItem = async () => {
-        try {
-          const value = await AsyncStorage.getItem('prds');
-          if (value !== null) {
-            // value previously stored
-            return JSON.parse(value)   
-        }
-        } catch (e) {
-          // error reading value
-        }
-      };
-
-
     useEffect( ()=>{
    
-        //   (async function(){
-        //       let res =await axios.get('https://fakestoreapi.com/products/')
-        //        let json_res =  res.data
-        //        setList(json_res)
-        //   })()
-           
-     
-              (async function(){
-                await setItem()
-                let json_res =await getItem()
-                setList([json_res]);   
-           })()
-           
-     
+      (async function(){
+        let res =await axios.get(`${utils.base_url}/todo/todo-list`)
+               let { result } =  res.data
+                 dispatch({
+                  type:constants.MY_TODO,
+                  payload:{
+                     list:result
+                  }
+                 })
+          })()
 
-
-        
-           
-          
-         
     } , [])
       
      return ( 
         <ScrollView>
         <View style={styles.todo_box} >  
         
-        {list!=undefined? list.map((ele, index)=>{
-            return  <Lists  key={index}  index={index} item={ele}/>
-        }):""}
+        {todo_list!=undefined?todo_list.map((ele, index)=>{
+            return<Lists  key={index}  index={index} item={ele} />
+        }): "" }
         
         </View>
         </ScrollView>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Modal, Portal, Button, Text , PaperProvider } from 'react-native-paper';
 import { StyleSheet, View    } from 'react-native';
 const MyComponent =  (props) => {
-    const {title , description}  = props.item
+    const {title , discription}  = props.item
      
      const [visible, setVisible] = React.useState(false);
 
@@ -19,7 +19,7 @@ const MyComponent =  (props) => {
     title : {title}</Text>
     
     <Text>
-    description : {description}</Text>
+    description : {discription}</Text>
 
     </Modal>
     </Portal>
