@@ -1,4 +1,4 @@
-import { View , StyleSheet} from "react-native"
+import { View , StyleSheet ,FlatList ,RefreshControl} from "react-native"
 import MyModal from "./Modal"
 import Lists from "./Lists"
 import { useEffect, useState } from "react"
@@ -13,21 +13,61 @@ import { Text } from 'react-native-paper';
 
 
  export default  Box=({list})=>{
+   
+          let dispatch = useDispatch()
+        const [updatedList, setUpdatedList ] = useState({
+         status:false ,
+         data: useSelector((ele)=> ele.mytodo.list )
+        })
 
      return ( 
-        <ScrollView>
         <View style={styles.todo_box} >  
-        
-        { list && list.map((ele, index)=>{
+
+         { 
+             <FlatList 
+              data={list }
+              keyExtractor={(item, index)=> index.toString() }
+              renderItem ={(ele, index)=> <Lists  key={index}  index={index} item={ele} />}
+              refreshControl={
+                  <RefreshControl 
+                   refreshing={ false }
+                   onRefresh={()=>  {
+                    
+                (async function(){
+                let res = await axios.get(`${utils.base_url}/todo/todo-list`)
+                let { result } =  res.data
+                        dispatch({
+                        type:constants.MY_TODO,
+                        payload:{
+                            list:result
+                        }
+                        })
+
+                         list=result
+                        // setUpdatedList({
+                        //     ...updatedList , status:true  , data:result
+                        // })
+
+                }) ()
+
+
+                     }}
+                  />
+
+              }
+            />
+         }
+     
+        {/* list && list.map((ele, index)=>{
             return<Lists  key={index}  index={index} item={ele} />
         }) 
-    }
+    */}
 
 
           
         
         </View>
-        </ScrollView>
+    
     )
 
      

@@ -13,7 +13,7 @@ import constant from '../Redux/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const removeTodo = (id , dispatch)=>{
+const removeTodo = (id , dispatch )=>{
 
 
         try {
@@ -25,11 +25,9 @@ const removeTodo = (id , dispatch)=>{
               let res =await axios.post(`${utils.base_url}/todo/remove-todo-list` ,{
                 _id:id
               })
-               
+                
                let { result } =  res.data
-
-                 console.log(result);
-            
+                 console.log(result);            
                  dispatch({
                   type:constant.MY_TODO,
                   payload:{
@@ -56,16 +54,17 @@ const Lists = (props) =>{
     const { index} = props 
     let dispath = useDispatch()
 
-
-    return (<List.Section>
+ 
+    
+  return (<List.Section>
    <List.Item title={()=>{
   return (
      <View style={styles.my_list}>
-     <Avatar.Text size={24} label={eval(props.index+1)  } /> 
-      <Text>{title} </Text>
+     <Avatar.Text size={24} label={eval(props.item.index+1) } /> 
+      <Text style={{color:"black"}} >{title} </Text>
      </View>
   )    
-   } } right={() =><ConfigComponent item={props.item} dispath={dispath} index={_id}  /> } />
+   } } right={() =><ConfigComponent item={props.item} onDeleted={()=> console.log("delted")}  dispath={dispath} index={props.item.item._id}  /> } />
    
    </List.Section>
     )}
@@ -79,10 +78,9 @@ const ConfigComponent = (props)=>{
          <View style={styles.config} >
    
             <Button onPress={()=> removeTodo(props.index , props.dispath ) }> 
-            <MaterialCommunityIcons onPress={()=> removeTodo(props.index , props.dispath ) }  name="delete" color={'#e91e63'} size={15} > 
+            <MaterialCommunityIcons onPress={()=> removeTodo(props.index , props.dispath , ) }   name="delete" color={'#e91e63'} size={15} > 
             delete
             </MaterialCommunityIcons>
-            
             </Button> 
           <EditModal item={props.item} style={{paddingRight:50}} />
          </View>

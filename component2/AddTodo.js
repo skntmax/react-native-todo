@@ -66,12 +66,11 @@ const AddTodo=({navigation})=>{
       margin:10,
       height:100 // <- set the max height here
 	}} 
-
       onChangeText={ text => setFd({...fd, [fd.discription.name]:{...fd.discription ,value:text  } } )}
     />
 
     <Button  mode="contained" onPress={addTodo}>
-    <Ionicons name="add" color={'#0000000'} size={20} >Add Todo </Ionicons>  </Button>
+    <Ionicons name="add" color={'#FFFFFF'} size={20} >Add Todo </Ionicons>  </Button>
 
         </View>
      ) 
