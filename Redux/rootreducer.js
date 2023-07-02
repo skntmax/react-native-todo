@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 
 //initializing state
 const initialState = {
-   list:[]
+   list:undefined
 }
  
 const mytodo = (state = initialState, action) => {

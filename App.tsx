@@ -6,8 +6,9 @@
  */
 
 // import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Text } from 'react-native-paper';
 
-
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import React ,{useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -15,7 +16,7 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
+  Alert,
   TouchableOpacity,
   useColorScheme,
   View,
@@ -86,28 +87,41 @@ function HomeScreen({navigation , route}:any) {
    
   useEffect( ()=>{
     
-    // if(route?.params?.sentFrom=='addtodo'){
-    //   setSentFrom(!sentFrom)
-    // }
+    if(route?.params?.sentFrom=='addtodo'){
+      navigation.addListener('focus', () => {
+        Alert.alert('Refreshed');
+      });
+  
+    }
 
-    (async function(){
-      let res =await axios.get(`${utils.base_url}/todo/todo-list`)
-             let { result } =  res.data
-              dispatch({
-                type:constants.MY_TODO,
-                payload:{
-                   list:result
-                }
-               })
-        }) ()
 
-  } , [])
+      (async function(){
+        let res = await axios.get(`${utils.base_url}/todo/todo-list`)
+               let { result } =  res.data
+                dispatch({
+                  type:constants.MY_TODO,
+                  payload:{
+                     list:result
+                  }
+                 })
+          }) ()
+
+     
+
+  
+
+  } , [navigation])
     
 
   return (
-    <View>
+    <View style={styles.main_Box}>
    <Heading />
-   <Box list={list} />
+
+{list!=undefined && Array.isArray(list) && list.length>0?  <Box list={list} /> :
+list!=undefined && Array.isArray(list) && list.length==0?  <Text variant="displaySmall" style={{textAlign:"center"}} > No Todo </Text>
+:
+list==undefined?<ActivityIndicator animating={true} color={MD2Colors.orange900} />:"" 
+}       
      </View>
 
   );
@@ -117,8 +131,6 @@ const Heading =()=>{
    return (
     <View style={styles.header}>
     <Text>  You todo list </Text>
-
-
     </View>
    )
 }
@@ -134,8 +146,17 @@ const styles = StyleSheet.create({
        alignItems:"center",
        textAlign:"center",
        fontSize:400
+      },
+
+      main_Box:{
+        backgroundColor:"white",
+        height:"100%"
       }
+
   })
+
+
+
   
 
 

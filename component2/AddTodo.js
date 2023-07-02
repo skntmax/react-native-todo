@@ -4,6 +4,9 @@ import { TextInput ,Button } from 'react-native-paper';
 import { StyleSheet } from "react-native";
 import utils from "../utils";
 import axios from "axios"; 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+
 const AddTodo=({navigation})=>{
 
 
@@ -67,9 +70,8 @@ const AddTodo=({navigation})=>{
       onChangeText={ text => setFd({...fd, [fd.discription.name]:{...fd.discription ,value:text  } } )}
     />
 
-    <Button icon="camera" mode="contained" onPress={addTodo}>
-     Add Todo
-    </Button>
+    <Button  mode="contained" onPress={addTodo}>
+    <Ionicons name="add" color={'#0000000'} size={20} >Add Todo </Ionicons>  </Button>
 
         </View>
      ) 

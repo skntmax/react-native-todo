@@ -10,6 +10,9 @@ import axios from 'axios';
 import utils from '../utils'
 import { useDispatch } from 'react-redux';
 import constant from '../Redux/constants';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const removeTodo = (id , dispatch)=>{
 
 
@@ -74,7 +77,13 @@ const ConfigComponent = (props)=>{
 
     return (
          <View style={styles.config} >
-            <Button onPress={()=> removeTodo(props.index , props.dispath ) }      > delete </Button> 
+   
+            <Button onPress={()=> removeTodo(props.index , props.dispath ) }> 
+            <MaterialCommunityIcons onPress={()=> removeTodo(props.index , props.dispath ) }  name="delete" color={'#e91e63'} size={15} > 
+            delete
+            </MaterialCommunityIcons>
+            
+            </Button> 
           <EditModal item={props.item} style={{paddingRight:50}} />
          </View>
     )

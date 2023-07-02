@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Modal, Portal, Button, Text , PaperProvider } from 'react-native-paper';
+
 import { StyleSheet, View    } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 const MyComponent =  (props) => {
     const {title , discription}  = props.item
      
@@ -25,7 +29,7 @@ const MyComponent =  (props) => {
     
 
         <Button  onPress={showModal}>
-        Show
+        <Icon onPress={showModal} name="list"  size={20} color="#A020F0" >  </Icon>      
         </Button>
     
  

@@ -18,11 +18,9 @@ import { Text } from 'react-native-paper';
         <ScrollView>
         <View style={styles.todo_box} >  
         
-        { list?list.map((ele, index)=>{
+        { list && list.map((ele, index)=>{
             return<Lists  key={index}  index={index} item={ele} />
-        }) : 
-
-        <ActivityIndicator animating={true} color={MD2Colors.red800} />
+        }) 
     }
 
 
