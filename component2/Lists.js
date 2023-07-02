@@ -1,0 +1,101 @@
+import * as React from 'react';
+import { Button, List, MD3Colors } from 'react-native-paper';
+import EditModal from './Modal'
+import { Alert, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Text } from 'react-native';
+import { Avatar } from 'react-native-paper';
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import axios from 'axios';
+import utils from '../utils'
+import { useDispatch } from 'react-redux';
+import constant from '../Redux/constants';
+const removeTodo = (id , dispatch)=>{
+
+
+        try {
+             
+    
+          (async function(){
+            console.log(id);
+       
+              let res =await axios.post(`${utils.base_url}/todo/remove-todo-list` ,{
+                _id:id
+              })
+               
+               let { result } =  res.data
+
+                 console.log(result);
+            
+                 dispatch({
+                  type:constant.MY_TODO,
+                  payload:{
+                    list:result
+                  }
+                 })
+
+                 // Alert(message)
+                 
+          })()
+
+        } catch (e) {
+          // saving error
+          console.log(e);
+        }
+      
+   
+}
+
+
+const Lists = (props) =>{
+
+    const {title , description , _id }  = props.item
+    const { index} = props 
+    let dispath = useDispatch()
+
+
+    return (<List.Section>
+   <List.Item title={()=>{
+  return (
+     <View style={styles.my_list}>
+     <Avatar.Text size={24} label={eval(props.index+1)  } /> 
+      <Text>{title} </Text>
+     </View>
+  )    
+   } } right={() =><ConfigComponent item={props.item} dispath={dispath} index={_id}  /> } />
+   
+   </List.Section>
+    )}
+    
+
+
+
+const ConfigComponent = (props)=>{
+
+    return (
+         <View style={styles.config} >
+            <Button onPress={()=> removeTodo(props.index , props.dispath ) }      > delete </Button> 
+          <EditModal item={props.item} style={{paddingRight:50}} />
+         </View>
+    )
+     
+}
+
+
+
+const styles = StyleSheet.create({
+config:{
+     flex:1,
+     flexDirection:"row"
+    },
+    my_list:{
+        flex:1,
+     flexDirection:"row" ,
+    //  justifyContent:"center",
+     alignItems:"center",
+     justifyContent:"space-between"
+    }
+})
+
+
+export default Lists;
