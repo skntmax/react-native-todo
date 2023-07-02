@@ -50,12 +50,11 @@ const removeTodo = (id , dispatch )=>{
 
 const Lists = (props) =>{
 
-    const {title , description , _id }  = props.item
+    const { item:{  title , discription , _id} }  = props.item
     const { index} = props 
     let dispath = useDispatch()
 
  
-    
   return (<List.Section>
    <List.Item title={()=>{
   return (

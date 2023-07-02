@@ -6,8 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const MyComponent =  (props) => {
-    const {title , discription}  = props.item
-     
+    const {item:{title , discription}}  = props.item
+    
      const [visible, setVisible] = React.useState(false);
 
   const showModal = () => setVisible(true);
@@ -23,7 +23,7 @@ const MyComponent =  (props) => {
 
      <Text  variant="titleLarge"  >  {discription}</Text>
 
-
+     
     </Modal>
     </Portal>
     
