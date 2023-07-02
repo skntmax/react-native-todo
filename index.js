@@ -9,6 +9,7 @@ import { configureFonts, MD3LightTheme, Provider as PaperProvider } from 'react-
 import { createStore } from 'redux';
 import store from './Redux/store';
 import { Provider } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const fontConfig = {
   customVariant: {
@@ -33,12 +34,13 @@ const theme = {
 
 export default function Main() {
     return (
-       
-      <Provider store={store}>
-      <PaperProvider  theme={theme} >
-      <App />
-      </PaperProvider>
-      </Provider>
+       <SafeAreaProvider>
+       <Provider store={store}>
+       <PaperProvider  theme={theme} >
+       <App />
+       </PaperProvider>
+       </Provider>
+       </SafeAreaProvider>
     );
   }
 

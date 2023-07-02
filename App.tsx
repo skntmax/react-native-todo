@@ -5,7 +5,7 @@
  * @format
  */
 
-import Icon from 'react-native-vector-icons/FontAwesome5';
+// import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 import React ,{useState} from 'react';
@@ -39,6 +39,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import utils from './utils'
 import { useSelector, useDispatch } from "react-redux"
 import constants from "./Redux/constants"
+import { Icon } from '@rneui/themed';
 
 const Tab = createBottomTabNavigator();
 function App() {
@@ -116,6 +117,7 @@ const Heading =()=>{
    return (
     <View style={styles.header}>
     <Text>  You todo list </Text>
+
 
     </View>
    )
